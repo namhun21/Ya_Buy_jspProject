@@ -75,7 +75,7 @@
                         </li>
                         <li><a href="./product-page.html">About</a></li>
                         <li><a href="./check-out.html">Blog</a></li>
-                        <li><a href="WEB-INF/jsp/contact.html">Contact</a></li>
+                        <li><a href="Contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
