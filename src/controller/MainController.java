@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/nav.jsp");
 		rd.forward(request, response);
 	}
 

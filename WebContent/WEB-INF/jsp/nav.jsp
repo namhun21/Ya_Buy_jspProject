@@ -26,9 +26,13 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
-<!-- body에 page preloader추가해야함 main에 -->
+
 <body>
-   
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    
     <!-- Search model -->
 	<div class="search-model">
 		<div class="h-100 d-flex align-items-center justify-content-center">
@@ -62,7 +66,7 @@
                 <nav class="main-menu mobile-menu">
                     <ul>
                         <li><a class="active" href="./index.html">Home</a></li>
-                        <li><a href="./categories.html">Shop</a>
+                        <li><a href="WEB-INF/jsp/categories.html">Shop</a>
                             <ul class="sub-menu">
                                 <li><a href="product-page.html">Product Page</a></li>
                                 <li><a href="shopping-cart.html">Shopping Card</a></li>
@@ -71,7 +75,7 @@
                         </li>
                         <li><a href="./product-page.html">About</a></li>
                         <li><a href="./check-out.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="WEB-INF/jsp/contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>
