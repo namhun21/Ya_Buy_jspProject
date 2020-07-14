@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestController
+ * Servlet implementation class MainController
  */
-@WebServlet("/test")
-public class TestController extends HttpServlet {
+@WebServlet("/main")
+public class MainController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/nav.jsp");
 		rd.forward(request, response);
 	}
 
