@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CategoryController
+ * Servlet implementation class ProductController
  */
-@WebServlet("/Category")
-public class CategoryController extends HttpServlet {
+@WebServlet("/Product")
+public class ProductController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/category.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/product.jsp");
 		rd.forward(request, response);
 	}
 
