@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CategoryController
  */
-@WebServlet("/Categoryr")
+@WebServlet("/Category")
 public class CategoryController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
