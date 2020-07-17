@@ -1,12 +1,44 @@
+<%@page import="product.dto.ProductDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ include file="nav.jsp" %>
 <!DOCTYPE html>
-<html>
+<html lang="zxx">
 
 <head>
+	<%ArrayList<ProductDTO> plist = (ArrayList<ProductDTO>) request.getAttribute("plist");
+   		int i =0;%>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function alert() {
+			alert("test");
+		}
+
+		<%-- function itemShow(){
+			document.write("<div class='col-lg-6 col-md-6'>");
+			document.write("<div class='single-product-item'>");
+			document.write("<figure>");
+			document.write("<img src='<%= plist.get(i).getProduct_img() %>' alt="">");
+			document.write("<div class='p-status'>new</div>");
+			document.write("<div class='hover-icon'>");
+			document.write("<a href='<%= plist.get(i).getProduct_img() %>' class='pop-up'><img src='img/icons/zoom-plus.png'
+                            alt=''></a>");
+			document.write("</div>");
+			document.write("</figure>");
+			document.write("<div class='product-text'>");
+			document.write("<a href='ProductDetail'>");
+			document.write("<h6><%= plist.get(i).getPname() %> </h6>");
+			document.write("</a>");
+			document.write("<p>$<%= plist.get(i).getPrice() %></p>");
+			document.write("</div>");
+			document.write("</div>");
+			document.write("</div>");
+		} --%>
+	</script>
 </head>
+
 <body>
     <!-- Page Add Section Begin -->
     <section class="page-add">
@@ -46,7 +78,7 @@
                                 </form>
                             </div>
                             <div class="cf-right">
-                                <span>20 Products</span>
+                                <span><%=plist.size() %> Products</span>
                                 <a href="#">2</a>
                                 <a href="#" class="active">4</a>
                                 <a href="#">6</a>
@@ -59,244 +91,112 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="single-product-item">
                         <figure>
-                            <img src="img/products/img-9.jpg" alt="">
-                            <div class="p-status">new</div>
+                            <img src="<%= plist.get(i).getProduct_img() %>" alt="">
+                            <div class="p-status new">new</div>
                             <div class="hover-icon">
-                                <a href="img/products/img-9.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
+                                <a href="<%= plist.get(i).getProduct_img() %>" class="pop-up"><img src="img/icons/zoom-plus.png"
                                         alt=""></a>
                             </div>
                         </figure>
                         <div class="product-text">
-                            <a href="#">
-                                <h6>Green Dress with details</h6>
+                          	<a href="ProductDetail?pid=<%=plist.get(i).getPid() %>">
+                                <h6><%= plist.get(i).getPname() %></h6>
                             </a>
-                            <p>$22.90</p>
+                            <p>$<%= plist.get(i).getPrice() %></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="row">
+                    <% int j = ++i;
+                    for(;i<j+4;i++){
+                    	if(i >= plist.size()) break;%>
                         <div class="col-lg-6 col-md-6">
                             <div class="single-product-item">
                                 <figure>
-                                    <img src="img/products/img-2.jpg" alt="">
+                                    <img src="<%=plist.get(i).getProduct_img() %>" alt="">
                                     <div class="p-status sale">sale</div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>Yellow Maxi Dress</h6>
-                                    </a>
-                                    <p>$25.90</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-3.jpg" alt="">
-                                    <div class="p-status">new</div>
                                     <div class="hover-icon">
-                                        <a href="img/products/img-3.jpg" class="pop-up"><img
+                                    <a href= "<%= plist.get(i).getProduct_img() %>" class="pop-up"><img
                                                 src="img/icons/zoom-plus.png" alt=""></a>
                                     </div>
                                 </figure>
                                 <div class="product-text">
-                                    <a href="#">
-                                        <h6>One piece bodysuit</h6>
+                                    <a href="ProductDetail?pid=<%=plist.get(i).getPid() %>">
+                                        <h6><%= plist.get(i).getPname() %></h6>
                                     </a>
-                                    <p>$19.90</p>
+                                    <p>$<%= plist.get(i).getPrice() %></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-6.jpg" alt="">
-                                    <div class="p-status sale">sale</div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>Yellow Maxi Dress</h6>
-                                    </a>
-                                    <p>$25.90</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-1.jpg" alt="">
-                                    <div class="hover-icon">
-                                        <a href="img/products/img-1.jpg" class="pop-up"><img
-                                                src="img/icons/zoom-plus.png" alt=""></a>
-                                    </div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>One piece bodysuit</h6>
-                                    </a>
-                                    <p>$19.90</p>
-                                </div>
-                            </div>
-                        </div>
+                    <%} %>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-product-item">
-                        <figure>
-                            <img src="img/products/img-5.jpg" alt="">
-                            <div class="p-status">new</div>
-                            <div class="hover-icon">
-                                <a href="img/products/img-5.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
-                                        alt=""></a>
-                            </div>
-                        </figure>
-                        <div class="product-text">
-                            <a href="#">
-                                <h6>Green Dress with details</h6>
-                            </a>
-                            <p>$22.90</p>
-                        </div>
-                    </div>
+                <% 	j = i;
+                   	for(;i<j+4;i++){
+              		if(i >= plist.size()) break;%>
+	                <div class="col-lg-3 col-md-6">
+	                <div class="single-product-item">
+	                    <figure>
+	                        <img src="<%=plist.get(i).getProduct_img() %>" alt="">
+	                        <div class="p-status popular">popular</div>
+	                        <div class="hover-icon">
+	                            <a href="<%= plist.get(i).getProduct_img() %>" class="pop-up"><img src="img/icons/zoom-plus.png"
+	                                    alt=""></a>
+	                        </div>
+	                    </figure>
+	                    <div class="product-text">
+	                        <a href="ProductDetail?pid=<%=plist.get(i).getPid() %>">
+	                            <h6><%= plist.get(i).getPname() %></h6>
+	                        </a>
+	                        <p>$<%= plist.get(i).getPrice() %></p>
+	                    </div>
+	                </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-product-item">
-                        <figure>
-                            <img src="img/products/img-4.jpg" alt="">
-                            <div class="p-status popular">popular</div>
-                            <div class="hover-icon">
-                                <a href="img/products/img-4.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
-                                        alt=""></a>
-                            </div>
-                        </figure>
-                        <div class="product-text">
-                            <a href="#">
-                                <h6>Blue Dress with details</h6>
-                            </a>
-                            <p>$35.50</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-product-item">
-                        <figure>
-                            <img src="img/products/img-8.jpg" alt="">
-                            <div class="p-status popular">popular</div>
-                            <div class="hover-icon">
-                                <a href="img/products/img-8.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
-                                        alt=""></a>
-                            </div>
-                        </figure>
-                        <div class="product-text">
-                            <a href="#">
-                                <h6>Blue Dress with details</h6>
-                            </a>
-                            <p>$35.50</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="single-product-item">
-                        <figure>
-                            <img src="img/products/img-10.jpg" alt="">
-                            <div class="p-status popular">popular</div>
-                            <div class="hover-icon">
-                                <a href="img/products/img-10.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
-                                        alt=""></a>
-                            </div>
-                        </figure>
-                        <div class="product-text">
-                            <a href="#">
-                                <h6>Blue Dress with details</h6>
-                            </a>
-                            <p>$35.50</p>
-                        </div>
-                    </div>
-                </div>
+                <%} %>
                 <div class="col-lg-6 col-md-6">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-11.jpg" alt="">
-                                    <div class="p-status sale">sale</div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>Yellow Maxi Dress</h6>
-                                    </a>
-                                    <p>$25.50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-12.jpg" alt="">
-                                    <div class="p-status">new</div>
-                                    <div class="hover-icon">
-                                        <a href="img/products/img-12.jpg" class="pop-up"><img
-                                                src="img/icons/zoom-plus.png" alt=""></a>
-                                    </div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>One piece bodysuit</h6>
-                                    </a>
-                                    <p>$19.90</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-14.jpg" alt="">
-                                    <div class="p-status sale">sale</div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>Yellow Maxi Dress</h6>
-                                    </a>
-                                    <p>$25.90</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-product-item">
-                                <figure>
-                                    <img src="img/products/img-15.jpg" alt="">
-                                    <div class="hover-icon">
-                                        <a href="img/products/img-15.jpg" class="pop-up"><img
-                                                src="img/icons/zoom-plus.png" alt=""></a>
-                                    </div>
-                                </figure>
-                                <div class="product-text">
-                                    <a href="#">
-                                        <h6>One piece bodysuit</h6>
-                                    </a>
-                                    <p>$19.90</p>
-                                </div>
-                            </div>
-                        </div>
+                    <% 	j = i;
+	                   	for(;i<j+4;i++){
+	              		if(i >= plist.size()) break;%>
+		                <div class="col-lg-3 col-md-6">
+			                <div class="single-product-item">
+			                    <figure>
+			                        <img src="<%= plist.get(i).getProduct_img() %>" alt="">
+			                        <div class="p-status sale">sale</div>
+			                        <div class="hover-icon">
+			                            <a href="<%= plist.get(i).getProduct_img() %>" class="pop-up"><img src="img/icons/zoom-plus.png"
+			                                    alt=""></a>
+			                        </div>
+			                    </figure>
+			                    <div class="product-text">
+			                        <a href="ProductDetail?pid=<%=plist.get(i).getPid() %>">
+			                            <h6><%= plist.get(i).getPname() %></h6>
+			                        </a>
+			                        <p>$<%= plist.get(i).getPrice() %></p>
+			                    </div>
+			                </div>
+		                </div>
+	                <%} %>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="single-product-item">
-                        <figure>
-                            <img src="img/products/img-13.jpg" alt="">
-                            <div class="p-status">new</div>
-                            <div class="hover-icon">
-                                <a href="img/products/img-13.jpg" class="pop-up"><img src="img/icons/zoom-plus.png"
-                                        alt=""></a>
-                            </div>
-                        </figure>
-                        <div class="product-text">
-                            <a href="#">
-                                <h6>Green Dress with details</h6>
-                            </a>
-                            <p>$22.90</p>
-                        </div>
-                    </div>
+                <div class="col-lg-3 col-md-6">
+	                <div class="single-product-item">
+	                    <figure>
+	                        <img src="<% out.println(plist.get(i).getProduct_img()); %>" alt="">
+	                        <div class="p-status new">new</div>
+	                        <div class="hover-icon">
+	                            <a href="<% out.println(plist.get(i).getProduct_img()); %>" class="pop-up"><img src="img/icons/zoom-plus.png"
+	                                    alt=""></a>
+	                        </div>
+	                    </figure>
+	                    <div class="product-text">
+	                        <a href="ProductDetail?pid=<%=plist.get(i).getPid() %>">
+	                            <h6><% out.println(plist.get(i).getPname()); %></h6>
+	                        </a>
+	                        <p>$<% out.println(plist.get(i).getPrice()); %></p>
+	                    </div>
+	                </div>
                 </div>
             </div>
             <div class="more-product">
@@ -399,6 +299,15 @@
     </footer>
     <!-- Footer Section End -->
 
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
