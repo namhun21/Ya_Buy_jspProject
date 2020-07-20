@@ -9,29 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-import product.dao.ProductDAO;
-import product.dto.ProductCommentDTO;
-
-@WebServlet("/CommentUpdate")
-public class CommentUpdateController extends HttpServlet {
+@WebServlet("/ProductPaging")
+public class ProductPagingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String commentValue = request.getParameter("comment");
-		String pid = request.getParameter("pid");
+		String Clickedpage = request.getParameter("Clickedpage");
 
-		ProductDAO dao = ProductDAO.getInstance();
-		int result = dao.insertComment(commentValue, pid);
+		Gson gson = new Gson();
+		JsonObject json = new JsonObject();
+		json.addProperty("Clickedpage", Clickedpage);
 
-		// result 0이상이면 된거다다다다다다
-		if (result > 0) {
-			Gson gson = new Gson();
-			ProductCommentDTO newComment = dao.selectInsertedComment(String.valueOf(result));
-			response.getWriter().write(gson.toJson(newComment));
-		}
+		response.getWriter().write(gson.toJson(json));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

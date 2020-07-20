@@ -3,11 +3,11 @@
 <%@page import="product.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="header.jsp"%>
 <!DOCTYPE html>
 <html>
 
 <head>
+
 <%@ include file="nav.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -31,6 +31,15 @@
 	function enrollClicked() {
 		
 		var commentValue = $("#commentValue").val();
+		
+		let today = new Date();
+		var year = today.getFullYear(); // 년도
+		var month = today.getMonth() + 1;  // 월
+		var date = today.getDate();  // 날짜
+		var hours = today.getHours(); // 시
+		var minutes = today.getMinutes();  // 분
+		var seconds = today.getSeconds();  // 초
+		
 		console.log(commentValue);
 		$.ajax({
 			url: "CommentUpdate",
@@ -43,13 +52,15 @@
 				alert('등록되었습니다.');
 				console.log(data[0]);
 				$('#commentSpace').prepend("<input type='text' disabled value="+data.comments+">");
-				//$("#data").html("<h1>"+data.name+"</h1>");
+				$('#commentSpace').prepend(year+"-"+month+"-"+date+" "+hours+":"+minutes+":"+seconds+"&nbsp;&nbsp;&nbsp; WIRTER : ");
 			},
 			error : function(request,status,error){
 				//console.log(data.name);
 			}
 		})
 	}
+	
+	
 	
 	
 </script>
@@ -87,19 +98,19 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-img">
                             <figure>
-                                <img src="<%= product.getProduct_img() %>" alt="">
+                                <img src="${product.product_img }" alt="">
                             </figure>
                         </div>
                         <div class="product-img">
                             <figure>
-                                <img src="<%= product.getProduct_img() %>" alt="">
+                                <img src="${product.product_img }" alt="">
                             </figure>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="product-content">
-                        <h2><%= product.getPname() %></h2>
+                        <h2>${product.pname }</h2>
                         <div class="pc-meta">
                             <h5>$22.90</h5>
                             <div class="rating">
@@ -114,12 +125,12 @@
                             labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
                             viverra maecenas accumsan lacus vel facilisis.</p>
                         <ul class="tags">
-                            <li><span>Category :</span> <%= product.getCategorycode() %></li>
+                            <li><span>Category :</span> ${product.categorycode}</li>
                             <li><span>Tags :</span> man, shirt, dotted, elegant, cool</li>
                         </ul>
                         <div class="product-quantity">
                             <div class="pro-qty">
-                                <input type="text" value="1">
+                                <input id="productCnt" type="text" value="1">
                             </div>
                         </div>
                         <a href="#" class="primary-btn pc-btn">Add to cart</a>
@@ -144,12 +155,12 @@
 					<div class="col-lg-8">
 		                <form action="#" class="contact-form">
 		                    <div class="row">
-		                        <div class="col-lg-6">
+		                        <div class="col-lg-12">
 		                            <input type="text" placeholder="Write your comment" id="commentValue">
 		                        </div>
 		                        <div class="col-lg-12 text-right">
 		                            <button type="button" onclick="enrollClicked()">Enroll comment</button>
-		                        </div><br><br>
+		                        </div><br><br><br>
 		                        <div id="commentSpace">
 			                       <c:set var='checkProduct' value='false'></c:set>
 		                        	<c:forEach items="${comment}" var="list">
@@ -163,6 +174,7 @@
 		                        		</c:choose>
 		                        		<c:if test="${checkProduct and (list.isdelete eq 0)}">
 											<!-- <div class="col-lg-6"> -->
+												${list.repregist } &nbsp;&nbsp;&nbsp; WRITER : ${list.userid } 
 					                            <input type="text" value="${list.comments } " disabled>
 					                        <!-- </div><br> -->
 										</c:if>

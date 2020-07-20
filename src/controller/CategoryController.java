@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.dao.ProductDAO;
 import product.dto.ProductDTO;
+import util.Pagination;
 
 /**
  * Servlet implementation class CategoryController
@@ -21,19 +22,57 @@ public class CategoryController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String sortby = request.getParameter("sort_by");
 		ArrayList<ProductDTO> plist = new ArrayList<ProductDTO>();
 
-		ProductDAO dao = new ProductDAO();
-		plist = dao.selectProductAll();
+		if (sortby == null || sortby.equals("sortby")) {
 
-		if (plist.isEmpty()) {
-			response.sendRedirect("main");
+			ProductDAO dao = ProductDAO.getInstance();
+			plist = dao.selectProductAll();
+
+			// page navigation
+			String curPage = request.getParameter("");
+			if (curPage == null) {
+				curPage = "1";
+			}
+			int contentCnt = 9;
+			int totalContentCnt = plist.size();
+//			int start = Integer.parseInt(curPage) * contentCnt - (contentCnt - 1);
+//			int end = Integer.parseInt(curPage) * contentCnt;
+
+			Pagination pagination = Pagination.getInstance();
+			pagination.pageInfo(Integer.parseInt(curPage), contentCnt, totalContentCnt);
+
+			if (plist.isEmpty()) {
+				response.sendRedirect("main");
+			} else {
+				request.setAttribute("plist", plist);
+				request.setAttribute("pagination", pagination);
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/category.jsp");
+				rd.forward(request, response);
+			}
 		} else {
-			request.setAttribute("plist", plist);
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/category.jsp");
-			rd.forward(request, response);
+			ProductDAO dao = ProductDAO.getInstance();
+			plist = dao.selectSortedProduct(sortby);
+
+			// page navigation
+			int contentCnt = 9;
+			int totalContentCnt = plist.size();
+
+			Pagination pagination = Pagination.getInstance();
+			pagination.pageInfo(1, contentCnt, totalContentCnt);
+
+			if (plist.isEmpty()) {
+				response.sendRedirect("main");
+			} else {
+				request.setAttribute("plist", plist);
+				request.setAttribute("pagination", pagination);
+				request.setAttribute("sortby", sortby);
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/category.jsp");
+				rd.forward(request, response);
+			}
 		}
+
 	}
 
 	/**

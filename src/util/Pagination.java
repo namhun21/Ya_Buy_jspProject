@@ -4,8 +4,8 @@ public class Pagination {
 	private int curPage; // 현재 페이지
 	private int totalPage; // 전체 페이지 개수
 	private int totalContentCnt; // 전체 게시물 개수
-	private int contentCnt = 10; // 한페이지에 표시할 게시물 개수
-	private int pageCnt = 10; // 보여줄 페이지 개수
+	private int contentCnt = 9; // 한페이지에 표시할 게시물 개수
+	private int pageCnt = 3; // 보여줄 페이지 개수
 	private boolean prev; // 이전 페이지 버튼
 	private boolean next; // 다음 페이지 버튼
 	private int curBlock; // 현재 페이지 블록

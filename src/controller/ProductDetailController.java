@@ -23,7 +23,7 @@ public class ProductDetailController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String productID = request.getParameter("pid");
 
-		ProductDAO dao = new ProductDAO();
+		ProductDAO dao = ProductDAO.getInstance();
 		ProductDTO pdto = dao.selectProduct(productID);
 		ArrayList<ProductCommentDTO> cdto = dao.selectCommentAll();
 

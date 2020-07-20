@@ -10,6 +10,19 @@ import product.dto.ProductDTO;
 import util.DBconnection;;
 
 public class ProductDAO {
+
+	private static ProductDAO productDAO = null;
+
+	private ProductDAO() {
+	}
+
+	public static ProductDAO getInstance() {
+		if (productDAO == null) {
+			productDAO = new ProductDAO();
+		}
+		return productDAO;
+	}
+
 	// 모든 상품가져오기
 	public ArrayList<ProductDTO> selectProductAll() {
 		Connection conn = null;
@@ -82,6 +95,49 @@ public class ProductDAO {
 		return dto;
 	}
 
+	// sort한 상품 가져오기
+	public ArrayList<ProductDTO> selectSortedProduct(String sortby) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> plist = new ArrayList<ProductDTO>();
+
+		String param = "";
+		if (sortby.equals("orders")) {
+			param = "PRODUCT_HIT";
+		} else if (sortby.equals("price")) {
+			param = "price";
+		}
+
+		conn = DBconnection.getInstance().getConnection();
+		String sql = "select * from product order by " + param;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setCategorycode(rs.getString("categorycode"));
+				dto.setPid(rs.getString("pid"));
+				dto.setPname(rs.getString("pname"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setProduct_hit(rs.getInt("product_hit"));
+				dto.setProduct_img(rs.getString("product_img"));
+				dto.setProduct_regist(rs.getString("product_regist"));
+				dto.setProduct_reply_cnt(rs.getInt("product_reply_cnt"));
+				dto.setStock(rs.getInt("stock"));
+				plist.add(dto);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBconnection.getInstance().close(pstmt, rs);
+		}
+
+		return plist;
+	}
+
 	// 상품 댓글가져오기
 	public ArrayList<ProductCommentDTO> selectCommentAll() {
 		Connection conn = null;
@@ -89,7 +145,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 
 		conn = DBconnection.getInstance().getConnection();
-		String sql = "select * from product_reply";
+		String sql = "select * from product_reply order by repregist desc";
 		ArrayList<ProductCommentDTO> clist = new ArrayList<ProductCommentDTO>();
 
 		try {
@@ -126,7 +182,7 @@ public class ProductDAO {
 		String userid = "juseok";
 		ArrayList<ProductCommentDTO> clist = selectCommentAll();
 		String replyID = String.valueOf(clist.size() + 1);
-		System.out.println("replyID : " + replyID);
+
 		conn = DBconnection.getInstance().getConnection();
 		String sql = "insert into product_reply values(?,?,?,sysdate,?,0)";
 
